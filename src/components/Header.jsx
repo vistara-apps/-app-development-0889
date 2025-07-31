@@ -4,6 +4,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Trophy, MessageCircle, TrendingUp, ShoppingBag, User, Menu, X } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import LoginModal from './LoginModal';
+import PointsDisplay from './ui/PointsDisplay';
 
 const Header = () => {
   const { user, isAuthenticated, logout } = useUser();
@@ -50,21 +51,24 @@ const Header = () => {
             <div className="flex items-center gap-4">
               {isAuthenticated ? (
                 <>
-                  <div className="points-badge">
-                    {user.debatePoints} Points
-                  </div>
+                  <PointsDisplay 
+                    points={user.debatePoints} 
+                    size="small"
+                    showLevel={false}
+                    showProgress={false}
+                  />
                   <div className="relative group">
                     <button className="flex items-center gap-2 btn btn-secondary">
                       <User size={18} />
                       {user.username}
                     </button>
-                    <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                      <Link to="/profile" className="block px-4 py-2 text-sm hover:bg-gray-50">
+                    <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-dropdown">
+                      <Link to="/profile" className="block px-4 py-2 text-sm hover:bg-gray-50 rounded-t-lg">
                         Profile
                       </Link>
                       <button
                         onClick={logout}
-                        className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 text-red-600"
+                        className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 text-red-600 rounded-b-lg"
                       >
                         Logout
                       </button>
